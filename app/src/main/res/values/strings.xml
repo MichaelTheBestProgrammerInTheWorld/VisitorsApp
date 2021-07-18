@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">VisitorsApp</string>
+
+    <string name="splash_intro">Hello, give us a moment to detect your location</string>
+    <string name="location_turn_on">Please turn on your location...</string>
+    <string name="location_permission">Please allow us to access your location...</string>
+    <string name="location_error">Couldn\'t get your location, please try again</string>
+</resources>
