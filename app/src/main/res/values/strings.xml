@@ -5,4 +5,9 @@
     <string name="location_turn_on">Please turn on your location...</string>
     <string name="location_permission">Please allow us to access your location...</string>
     <string name="location_error">Couldn\'t get your location, please try again</string>
+
+    <string name="welcome">Welcome to our office at </string>
+    <string name="book">Book a Visit</string>
+    <string name="restart">Please restart the app</string>
+
 </resources>

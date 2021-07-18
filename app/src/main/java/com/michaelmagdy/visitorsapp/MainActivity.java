@@ -15,7 +15,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textView = findViewById(R.id.txt);
-        textView.setText(getIntent().getStringExtra("cityName"));
+        if (getIntent().hasExtra("cityName")){
+            textView.setText( getString(R.string.welcome)  + "   \n"  +  getIntent().getStringExtra("cityName"));
+        }
+
     }
 
 

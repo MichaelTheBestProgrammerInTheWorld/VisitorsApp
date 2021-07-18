@@ -117,7 +117,7 @@ public class SplashActivity extends AppCompatActivity {
         if (requestCode == PERMISSION_ID) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //getLastLocation();
-                //observeLocation();
+                observeLocation();
             } else {
                 textView.setText(getString(R.string.location_permission));
                 progressBar.setVisibility(View.GONE);
@@ -147,6 +147,10 @@ public class SplashActivity extends AppCompatActivity {
                     goToMainActivity(s);
                 }
             });
+        } else {
+
+            //TODO: RESTART THE APP
+            Toast.makeText(this, getString(R.string.restart), Toast.LENGTH_SHORT).show();
         }
     }
 
