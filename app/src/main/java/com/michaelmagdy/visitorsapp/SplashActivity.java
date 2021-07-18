@@ -3,6 +3,8 @@ package com.michaelmagdy.visitorsapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -19,6 +21,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -27,6 +30,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.michaelmagdy.visitorsapp.viewmodel.SplashActivtyViewModel;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,48 +38,33 @@ import java.util.Locale;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private FusedLocationProviderClient mFusedLocationClient;
     private int PERMISSION_ID = 44;
     private ProgressBar progressBar;
     private TextView textView;
+    private SplashActivtyViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        // method to get the location
-        getLastLocation();
+        if (requestPermissions()){
+            //viewModel = new  ViewModelProvider(this).get(SplashActivtyViewModel.class);
+        }
 
         progressBar = findViewById(R.id.splash_progressBar);
         textView = findViewById(R.id.splash_textView);
-    }
 
-    @SuppressLint("MissingPermission")
-    private void getLastLocation() {
-        // check if permissions are given
+
         if (checkPermissions()) {
 
+            viewModel = new  ViewModelProvider(this).get(SplashActivtyViewModel.class);
             // check if location is enabled
             if (isLocationEnabled()) {
 
-                // getting last
-                // location from
-                // FusedLocationClient
-                // object
-                mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        Location location = task.getResult();
-                        if (location == null) {
-                            requestNewLocationData();
-                        } else {
-                            getLocationName(location.getLatitude(), location.getLongitude());
-                        }
-                    }
-                });
+                observeLocation();
+
             } else {
                 textView.setText(getString(R.string.location_turn_on));
                 progressBar.setVisibility(View.GONE);
@@ -87,33 +76,19 @@ public class SplashActivity extends AppCompatActivity {
             // request for permissions
             requestPermissions();
         }
+
     }
 
-    @SuppressLint("MissingPermission")
-    private void requestNewLocationData() {
+    // method to request for permissions
+    private boolean requestPermissions() {
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ID);
 
-        // Initializing LocationRequest
-        // object with appropriate methods
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(5);
-        mLocationRequest.setFastestInterval(0);
-        mLocationRequest.setNumUpdates(1);
-
-        // setting LocationRequest
-        // on FusedLocationClient
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+        return true;
     }
 
-    private LocationCallback mLocationCallback = new LocationCallback() {
 
-        @Override
-        public void onLocationResult(LocationResult locationResult) {
-            Location mLastLocation = locationResult.getLastLocation();
-            getLocationName(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-        }
-    };
 
     // method to check for permissions
     private boolean checkPermissions() {
@@ -125,12 +100,7 @@ public class SplashActivity extends AppCompatActivity {
         // ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
-    // method to request for permissions
-    private void requestPermissions() {
-        ActivityCompat.requestPermissions(this, new String[]{
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ID);
-    }
+
 
     // method to check
     // if location is enabled
@@ -146,7 +116,8 @@ public class SplashActivity extends AppCompatActivity {
 
         if (requestCode == PERMISSION_ID) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLastLocation();
+                //getLastLocation();
+                //observeLocation();
             } else {
                 textView.setText(getString(R.string.location_permission));
                 progressBar.setVisibility(View.GONE);
@@ -161,46 +132,22 @@ public class SplashActivity extends AppCompatActivity {
         if (checkPermissions()) {
             progressBar.setVisibility(View.VISIBLE);
             textView.setText(getString(R.string.splash_intro));
-            getLastLocation();
+            //getLastLocation();
+            //observeLocation();
         }
     }
 
-    public String getLocationName(double lattitude, double longitude) {
+    private void observeLocation(){
 
-        String cityName = "Not Found";
-        Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
-        try {
-
-            List<Address> addresses = gcd.getFromLocation(lattitude, longitude,
-                    10);
-
-            for (Address adrs : addresses) {
-                if (adrs != null) {
-
-                    String city = adrs.getLocality();
-                    if (city != null && !city.equals("")) {
-                        cityName = city;
-                        System.out.println("city ::  " + cityName);
-
-                        progressBar.setVisibility(View.GONE);
-                        goToMainActivity(cityName);
-                        return cityName;
-
-                    } else {
-
-                    }
-                    // // you should also try with addresses.get(0).toSring();
-
+        if (viewModel != null){
+            viewModel.getCityNameLiveData().observe(this, new Observer<String>() {
+                @Override
+                public void onChanged(String s) {
+                    //Toast.makeText(SplashActivity.this, "LiveData : " + s, Toast.LENGTH_SHORT).show();
+                    goToMainActivity(s);
                 }
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            });
         }
-        progressBar.setVisibility(View.GONE);
-        textView.setText(getString(R.string.location_error));
-        return cityName;
-
     }
 
     private void goToMainActivity(String cityName) {
