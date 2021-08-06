@@ -157,7 +157,9 @@ public class SplashActivity extends AppCompatActivity {
     private void goToMainActivity(String cityName) {
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("cityName", cityName);
+        if (!cityName.equals("Not Found")){
+            intent.putExtra("cityName", cityName);
+        }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
