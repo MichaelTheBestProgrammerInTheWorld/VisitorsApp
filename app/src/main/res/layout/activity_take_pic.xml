@@ -6,4 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".TakePicActivity">
 
+    <ImageView
+        android:id="@+id/visitor_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.197"
+        tools:srcCompat="@tools:sample/avatars"
+        android:src="@drawable/baseline_account_box_black_48dp"/>
+
+    <Button
+        android:id="@+id/open_camera_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/open_cam"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="italic"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/visitor_img"
+        app:layout_constraintStart_toStartOf="@+id/visitor_img"
+        app:layout_constraintTop_toBottomOf="@+id/visitor_img"
+        app:layout_constraintVertical_bias="0.103" />
+
+    <Button
+        android:id="@+id/submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="124dp"
+        android:text="@string/submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

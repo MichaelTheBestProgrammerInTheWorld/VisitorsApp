@@ -21,6 +21,10 @@
     <string name="resend_otp">Resend OTP</string>
     <string name="next">Next</string>
 
+    <string name="open_cam">Open Camera</string>
+    <string name="take_pic">Please take a picture first</string>
+    <string name="submit">Submit</string>
+
     <string name="all_req">Sorry all fields are required</string>
 
     <array name="purposes_array">
