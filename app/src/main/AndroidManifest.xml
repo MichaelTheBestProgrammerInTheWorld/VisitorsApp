@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VisitorsApp">
-        <activity android:name=".OtpActivity"></activity>
+        <activity android:name=".TakePicActivity"></activity>
+        <activity android:name=".OtpActivity" />
         <activity android:name=".FormActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
