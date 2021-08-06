@@ -10,4 +10,24 @@
     <string name="book">Book a Visit</string>
     <string name="restart">Please restart the app</string>
 
+    <string name="name">Your Name</string>
+    <string name="email">Your Email</string>
+    <string name="mobile">Your Mobile Number</string>
+    <string name="address">Your Address</string>
+    <string name="purpose">Purpose of Visit :</string>
+    <string name="host_emp">Host Employee :</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="otp">OTP</string>
+
+    <string name="all_req">Sorry all fields are required</string>
+
+    <array name="purposes_array">
+
+        <item>Meeting</item>
+        <item>Interview</item>
+        <item>Vendor</item>
+        <item>Audit</item>
+
+    </array>
+
 </resources>

@@ -25,6 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="144dp"
         android:text="@string/book"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="italic"
         android:padding="8dp"
         android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,9 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FormActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginVertical="24dp"
+        android:layout_marginHorizontal="12dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_edt"
+            android:hint="@string/name"
+            android:inputType="textPersonName"
+            android:layout_marginVertical="8dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/email_edt"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:layout_marginVertical="8dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mobile_edt"
+            android:hint="@string/mobile"
+            android:inputType="phone"
+            android:layout_marginVertical="8dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/address_edt"
+            android:hint="@string/address"
+            android:inputType="textPostalAddress"
+            android:layout_marginVertical="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/host_emp"
+            android:layout_marginVertical="8dp"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emp_spn"
+            android:spinnerMode="dropdown"
+            android:layout_marginVertical="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/purpose"
+            android:layout_marginVertical="8dp"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/purp_spn"
+            android:spinnerMode="dropdown"
+            android:layout_marginVertical="8dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/send_otp_btn"
+            android:text="@string/send_otp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="italic"
+            android:padding="8dp"
+            android:layout_marginVertical="8dp"/>
+
+    </LinearLayout>
+
+
+</ScrollView>
